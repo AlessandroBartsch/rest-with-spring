@@ -2,19 +2,11 @@ package com.restwithspring.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-public class PersonVO implements Serializable {
+public class PersonDTO implements Serializable {
 
     private Long id;
     private String firstName;
     private String lastName;
-    private String address;
-    private String gender;
 
 
     public Long getId() {
@@ -39,21 +31,5 @@ public class PersonVO implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 }

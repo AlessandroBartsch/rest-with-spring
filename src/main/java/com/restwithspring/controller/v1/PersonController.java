@@ -1,4 +1,4 @@
-package com.restwithspring.controller;
+package com.restwithspring.controller.v1;
 
 import java.util.List;
 import java.util.concurrent.atomic.*;
@@ -8,11 +8,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.restwithspring.model.Person;
+import com.restwithspring.model.PersonDTO;
 import com.restwithspring.service.PersonService;
 
+import static com.restwithspring.controller.v1.RestPath.BASE_PATH;
+
 @RestController
-@RequestMapping("/person")
+@RequestMapping(BASE_PATH + "/person")
 public class PersonController {
 
     private static final String template = "Hello, %s!";
@@ -25,7 +27,7 @@ public class PersonController {
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<Person> getAll() {
+    public List<PersonDTO> getAll() {
         return service.findAll();
     }
 
@@ -33,7 +35,7 @@ public class PersonController {
             value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person getById(
+    public PersonDTO getById(
             @PathVariable(value = "id") Long id) {
 
         return service.findById(id);
@@ -43,8 +45,8 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person create(
-            @RequestBody Person person) {
+    public PersonDTO create(
+            @RequestBody PersonDTO person) {
 
         return service.create(person);
     }
@@ -53,10 +55,11 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person update(
-            @RequestBody Person person) {
+    public PersonDTO update(
+            @RequestBody PersonDTO person) {
 
-        return service.update(person);
+        var response = service.update(person);
+        return  response;
     }
 
     @DeleteMapping(

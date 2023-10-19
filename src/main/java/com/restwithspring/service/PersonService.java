@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restwithspring.model.Person;
+import com.restwithspring.model.PersonDTO;
+import com.restwithspring.model.mapper.PersonMapper;
 import com.restwithspring.repository.PersonRepository;
 
 @Service
@@ -20,34 +22,43 @@ public class PersonService {
     @Autowired
     PersonRepository repository;
 
-    public List<Person> findAll() {
-        return repository.findAll();
+    public List<PersonDTO> findAll() {
+        var response = PersonMapper.INSTANCE.personsToDTOs(repository.findAll());
+        return response;
     }
 
-    public Person findById(Long id) {
-        return repository.findById(id)
+    public PersonDTO findById(Long id) {
+        var repsonse = repository.findById(id)
                 .orElseThrow();
+        return PersonMapper.INSTANCE.personToDTO(repsonse);
     }
 
-    public Person create(Person person) {
-        return repository.save(person);
+    public PersonDTO create(PersonDTO person) {
+
+        var entity = PersonMapper.INSTANCE.DTOToPerson(person);
+        var response = repository.save(entity);
+
+        var responseVO = PersonMapper.INSTANCE.personToDTO(response);
+
+        return responseVO;
     }
 
-    public Person update(Person person) {
+    public PersonDTO update(PersonDTO person) {
         var entity = repository.findById(person.getId())
                 .orElseThrow();
 
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
-        entity.setAddress(person.getAddress());
-        entity.setGender(person.getGender());
+        var entityResponse = repository.save(entity);
 
-        return repository.save(entity);
+        return PersonMapper.INSTANCE.personToDTO(entityResponse);
     }
 
     public void delete(Long id) {
+
         var entity = repository.findById(id)
                 .orElseThrow();
+
 
         repository.delete(entity);
     }
