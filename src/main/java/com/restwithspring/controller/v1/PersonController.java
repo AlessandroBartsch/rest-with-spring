@@ -3,12 +3,12 @@ package com.restwithspring.controller.v1;
 import java.util.List;
 import java.util.concurrent.atomic.*;
 
+import com.restwithspring.model.vo.PersonDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.restwithspring.model.PersonDTO;
 import com.restwithspring.service.PersonService;
 
 import static com.restwithspring.controller.v1.RestPath.BASE_PATH;
@@ -25,7 +25,10 @@ public class PersonController {
     private PersonService service;
 
     @GetMapping(
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE
+            }
     )
     public List<PersonDTO> getAll() {
         return service.findAll();
@@ -33,7 +36,10 @@ public class PersonController {
 
     @GetMapping(
             value = "/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE
+            }
     )
     public PersonDTO getById(
             @PathVariable(value = "id") Long id) {
@@ -42,8 +48,14 @@ public class PersonController {
     }
 
     @PostMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            consumes = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE
+            },
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE
+            }
     )
     public PersonDTO create(
             @RequestBody PersonDTO person) {
@@ -52,8 +64,14 @@ public class PersonController {
     }
 
     @PutMapping(
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            consumes = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE
+            },
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE
+            }
     )
     public PersonDTO update(
             @RequestBody PersonDTO person) {

@@ -21,10 +21,10 @@ public class Person implements Serializable {
     @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "address", nullable = false, length = 100)
     private String address;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "gender", nullable = false, length = 100)
     private String gender;
 
     public Long getId() {
