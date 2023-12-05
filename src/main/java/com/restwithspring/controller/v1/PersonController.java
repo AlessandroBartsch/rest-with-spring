@@ -33,6 +33,7 @@ public class PersonController {
     @Autowired
     private PersonService service;
 
+    @CrossOrigin(origins = {"https://localhost:8080", "https://navoz.com.br"})
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     @Operation(
         summary = "Buscar todos",

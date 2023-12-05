@@ -20,7 +20,6 @@ import com.restwithspring.repository.PersonRepository;
 @Service
 public class PersonService {
 
-    private final AtomicLong counter = new AtomicLong();
     protected static final Logger logger = LogManager.getLogger(PersonService.class);
 
     @Autowired
